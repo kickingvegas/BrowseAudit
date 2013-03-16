@@ -6,11 +6,11 @@ A Python script to read your OS X Safari history file and list your most frequen
 
 Run the following:
 
-To generate a HTML file and open in Safari:
+To generate a HTML file `index.html` and open via Finder:
 
     $ make html
 
-To generate a CSV file and open:
+To generate a CSV file `output.csv` and open via Finder:
 
     $ make csv
     
@@ -33,7 +33,7 @@ To generate a HTML file `index.html`:
 
     $ python browseaudit.py -H
     
-To generate a CSV file `index.html`:
+To generate a CSV file `output.csv`:
 
     $ python browseaudit.py -C
 
