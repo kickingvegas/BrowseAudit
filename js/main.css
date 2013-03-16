@@ -1,0 +1,77 @@
+/**
+   
+ */
+
+body {
+    margin: 0pt;
+    padding: 0.5in;
+    font-family: Helvetica, Arial;
+    font-size: 12pt;
+}
+
+
+h1 {
+    font-size: 16pt;
+}
+
+h2 {
+    background-color: lightgrey;
+    font-size: 14pt;
+}
+
+h3 {
+    font-style: oblique;
+    font-size: 12pt;
+}
+
+h4 {
+    font-size: 12pt; 
+    font-style: oblique;
+}
+
+table {
+   border-style: solid;
+   border-width: 1px;
+   border-color: grey;
+   width: 75%;
+   page-break-inside: auto;
+}
+
+tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+}
+
+td {
+   border-bottom: 1px solid grey;
+   border-right: 1px solid grey;
+   font-size: 14pt;
+}
+
+th {
+   border-bottom: 3px solid black;
+   border-right: 1px solid grey;
+   font-size: 14pt;
+}
+
+thead {
+    display: table-header-group;
+}
+
+tfoot {
+    display: table-footer-group;
+}
+
+
+pre {
+     background-color: #ECECEC
+}
+
+.break {
+     page-break-before: always;
+}
+
+.seqdia {
+    width: 5in;
+    height: 5in;
+}
