@@ -1,6 +1,9 @@
 # BrowseAudit
 
-A Python script to read your OS X Safari history file and list your most frequently visited websites. Output includes HTML, CSV, and listing to stdout.
+A Python script to read your OS X Safari history file and privately list your most frequently visited websites. Output includes HTML, CSV, and listing to stdout.
+
+Surprise yourself today. 
+
 
 ## Quick Start Using Make
 
@@ -40,7 +43,7 @@ To generate a CSV file `output.csv`:
 To get help: 
 
     $ python browseaudit.py -h
-    
+
 
 ## License
 
