@@ -20,11 +20,11 @@ run:
 	python browseaudit.py -n ${NUMITEMS}
 
 html:
-	python browseaudit.py -n ${NUMITEMS} --html
+	python browseaudit.py -n ${NUMITEMS} --html --no-stdout
 	open index.html
 
 csv: 
-	python browseaudit.py -n ${NUMITEMS} --csv
+	python browseaudit.py -n ${NUMITEMS} --csv --no-stdout
 	open output.csv
 
 clean:
