@@ -36,7 +36,7 @@ helpString = """
 -n <n>, --number=<n>      return the top n sites visited
 -C, --csv                 generate output.csv file 
 -H, --html                generate index.html file
---no-stdout                suppress display on stdout 
+--no-stdout               suppress display on stdout 
 
 """
 
