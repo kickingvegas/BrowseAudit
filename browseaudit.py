@@ -1,5 +1,19 @@
 #!/usr/bin/env python
-# Copyright 2013 Yummy Melon Software
+#
+# Copyright 2013 Yummy Melon Software LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 # Author: Charles Y. Choi
 
 import os
@@ -15,19 +29,25 @@ import tempfile
 from xml.etree.ElementTree import ElementTree, Element, SubElement
 from datetime import datetime
 
-usageString = '%s ...' % os.path.basename(sys.argv[0])
+usageString = '%s' % os.path.basename(sys.argv[0])
 helpString = """
 -h, --help                help
 -v, --version             version
 -n <n>, --number=<n>      return the top n sites visited
+-C, --csv                 generate output.csv file 
+-H, --html                generate index.html file
+--no-stdout                suppress display on stdout 
 
 """
 
-class Application:
+class BrowseAudit:
     def __init__(self):
         self.version = 1.0
         self.options = {}
-        self.options['n'] = -50
+        self.options['n'] = 50
+        self.options['html'] = False
+        self.options['csv'] = False
+        self.options['stdout'] = True
         self.historyDict = None
         self.histogram = {}
         
@@ -43,6 +63,15 @@ class Application:
             elif o in ('-v', '--version'):
                 sys.stdout.write('%s\n' % str(self.version))
                 sys.exit(0)
+
+            elif o in ('-H', '--html'):
+                self.options['html'] = True
+                
+            elif o in ('-C', '--csv'):
+                self.options['csv'] = True
+
+            elif o in ('--no-stdout',):
+                self.options['stdout'] = False
                 
             elif o in ('-n', '--number'):
                 try:
@@ -88,8 +117,17 @@ class Application:
 
         subsetList.reverse()
 
-        self.genCSV(subsetList)
-        self.genHTML(subsetList)
+        
+        if self.options['csv']:
+            self.genCSV(subsetList)
+
+        if self.options['html']:
+            self.genHTML(subsetList)
+
+        if self.options['stdout']:
+            for key, value in subsetList:
+                buf = '{0} {1}\n'.format(key.encode('utf-8'), value)
+                sys.stdout.write(buf)
 
 
     def genCSV(self, resultList):
@@ -157,9 +195,11 @@ class Application:
 if __name__ == '__main__':
 
     try:
-        optlist, args = getopt.getopt(sys.argv[1:], 'hvn:',
+        optlist, args = getopt.getopt(sys.argv[1:], 'hvn:CH',
                                       ('help',
                                        'version',
+                                       'html',
+                                       'csv',                                       
                                        'number='))
     except getopt.error, msg:
         sys.stderr.write(msg[0] + '\n')
@@ -167,7 +207,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     
-    app = Application()
+    app = BrowseAudit()
     app.run(optlist, args)
 
     
