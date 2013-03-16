@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-#
 # Copyright 2013 Yummy Melon Software LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,17 +19,14 @@ NUMITEMS=50
 run:
 	python browseaudit.py -n ${NUMITEMS}
 
-html: index.html
+html:
+	python browseaudit.py -n ${NUMITEMS} --html
 	open index.html
 
-csv: output.csv
+csv: 
+	python browseaudit.py -n ${NUMITEMS} --csv
 	open output.csv
 
-index.html:
-	python browseaudit.py -n ${NUMITEMS} --html
-
-output.csv:
-	python browseaudit.py -n ${NUMITEMS} --csv
-
 clean:
-	rm index.html output.csv
+	- rm index.html
+	- rm output.csv
