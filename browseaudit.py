@@ -108,7 +108,6 @@ class BrowseAudit:
 
         sortedHistogram = sorted(self.histogram.iteritems(), key = operator.itemgetter(1))
         n = self.options['n']
-        print len(sortedHistogram)
         if n < len(sortedHistogram):
             n = n * -1
             subsetList = sortedHistogram[n:]
@@ -205,7 +204,8 @@ if __name__ == '__main__':
                                       ('help',
                                        'version',
                                        'html',
-                                       'csv',                                       
+                                       'csv',
+                                       'no-stdout',
                                        'number='))
     except getopt.error, msg:
         sys.stderr.write(msg[0] + '\n')
