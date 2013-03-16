@@ -27,6 +27,9 @@ csv:
 	python browseaudit.py -n ${NUMITEMS} --csv --no-stdout
 	open output.csv
 
+help:
+	python browseaudit.py -h
+
 clean:
 	- rm index.html
 	- rm output.csv
