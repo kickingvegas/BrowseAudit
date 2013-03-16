@@ -176,7 +176,13 @@ class BrowseAudit:
             td2.text = '{0}'.format(value)
             td2.attrib = {'align' : 'center'}
             counter += 1
-            
+
+        p2 = SubElement(body, 'p')
+        p2.text = u'BrowseAudit \xa9 2013 '
+        a = SubElement(p2, 'a')
+        a.text = 'Yummy Melon Software LLC'
+        a.attrib = {'href' : 'http://www.yummymelon.com'}
+        
         doc = ElementTree(html)
 
         with open('index.html', 'w') as outfile:
