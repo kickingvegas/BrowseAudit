@@ -99,12 +99,15 @@ class BrowseAudit:
 
         for histObj in self.historyDict:
             urlObj = urlparse(histObj[''])
-            domain = self.getDomain(urlObj.netloc)
+            domain = self.getDomain(urlObj)
+            if domain is None:
+                continue
+            visitCount = histObj['visitCount']
 
             if domain in self.histogram:
-                self.histogram[domain] += 1
+                self.histogram[domain] += visitCount
             else:
-                self.histogram[domain] = 1
+                self.histogram[domain] = visitCount
 
         sortedHistogram = sorted(self.histogram.iteritems(), key = operator.itemgetter(1))
         n = self.options['n']
@@ -188,12 +191,24 @@ class BrowseAudit:
             doc.write(outfile)
 
             
-    def getDomain(self, netloc):
-        domain = netloc
-        tempList = netloc.split('.')
-        if len(tempList) >= 3:
-            domain = '.'.join(tempList[-2:])
+    def getDomain(self, urlObj):
+        domain = None
+        if urlObj.scheme in ('https', 'http', 'ftp', 'sftp', 'mailto'):
+            netloc = urlObj.netloc
+            domain = netloc
+            tempList = netloc.split('.')
+            if len(tempList) == 1:
+                pass
+            elif len(tempList) >= 3:
+                domain = '.'.join(tempList[-2:])
 
+        elif urlObj.scheme in ('file',):
+            domain = 'localhost'
+
+        else:
+            sys.stderr.write('WARNING: Not counting url {0}'.format(urlObj.geturl()))
+            sys.stderr.write('\n')
+            
         return domain
         
          
