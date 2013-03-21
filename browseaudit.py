@@ -98,7 +98,12 @@ class BrowseAudit:
         self.historyDict = plist['WebHistoryDates']
 
         for histObj in self.historyDict:
-            urlObj = urlparse(histObj[''])
+            try:
+                urlObj = urlparse(histObj[''])
+            except ValueError, e:
+                sys.stderr.write('WARNING: {0}; Not counting url {1}\n'.format(e, histObj['']))
+                continue
+                
             domain = self.getDomain(urlObj)
             if domain is None:
                 continue
