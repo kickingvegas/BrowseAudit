@@ -28,6 +28,14 @@ import operator
 import tempfile
 from xml.etree.ElementTree import ElementTree, Element, SubElement
 from datetime import datetime
+import urllib
+try:
+    from publicsuffix import PublicSuffixList
+except ImportError:
+    sys.stderr.write("ERROR: Please run 'make setup' to run browseaudit.\n")
+    sys.exit(1)
+    
+
 
 usageString = '%s' % os.path.basename(sys.argv[0])
 helpString = """
@@ -50,6 +58,8 @@ class BrowseAudit:
         self.options['stdout'] = True
         self.historyDict = None
         self.histogram = {}
+        self.psl = None
+        self.publicSuffixURL = 'http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1'
         
     def run(self, optlist, args):
         sys.stdout.write('# BrowseAudit\n')
@@ -94,6 +104,12 @@ class BrowseAudit:
 
         else:
             plist = plistlib.readPlist(args[0])
+
+        if not os.path.exists('publicsuffix.txt'):
+            infile = urllib.urlopen(self.publicSuffixURL)
+            with open('publicsuffix.txt', 'w') as outfile:
+                outfile.write(infile.read())
+            
         
         self.historyDict = plist['WebHistoryDates']
 
@@ -197,15 +213,12 @@ class BrowseAudit:
 
             
     def getDomain(self, urlObj):
+        if self.psl is None:
+            self.psl = PublicSuffixList()
+        
         domain = None
         if urlObj.scheme in ('https', 'http', 'ftp', 'sftp', 'mailto'):
-            netloc = urlObj.netloc
-            domain = netloc
-            tempList = netloc.split('.')
-            if len(tempList) == 1:
-                pass
-            elif len(tempList) >= 3:
-                domain = '.'.join(tempList[-2:])
+            domain = self.psl.get_public_suffix(urlObj.netloc)
 
         elif urlObj.scheme in ('file',):
             domain = 'localhost'
