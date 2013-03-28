@@ -16,20 +16,30 @@
 
 NUMITEMS=50
 
-run:
+setup: publicsuffix.py
+
+publicsuffix.py:
+	cp publicsuffix/publicsuffix.py .
+
+run: publicsuffix.py
 	python browseaudit.py -n ${NUMITEMS}
 
-html:
+html: publicsuffix.py
 	python browseaudit.py -n ${NUMITEMS} --html --no-stdout
 	open index.html
 
-csv: 
+csv: publicsuffix.py
 	python browseaudit.py -n ${NUMITEMS} --csv --no-stdout
 	open output.csv
 
-help:
+help: publicsuffix.py
 	python browseaudit.py -h
 
 clean:
-	- rm index.html
-	- rm output.csv
+	find . -name index.html -delete
+	find . -name output.csv -delete
+	find . -name '*~' -delete
+	find . -name '*.pyc' -delete
+
+deepclean: clean
+	- rm -f publicsuffix.py publicsuffix.txt
