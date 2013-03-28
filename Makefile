@@ -18,7 +18,10 @@ NUMITEMS=50
 
 setup: publicsuffix.py
 
-publicsuffix.py:
+publicsuffix/publicsuffix.py:
+	git submodule update
+
+publicsuffix.py: publicsuffix/publicsuffix.py
 	cp publicsuffix/publicsuffix.py .
 
 run: publicsuffix.py
