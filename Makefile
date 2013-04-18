@@ -19,7 +19,7 @@ NUMITEMS=50
 setup: publicsuffix.py
 
 publicsuffix/publicsuffix.py:
-	git submodule update
+	git submodule update --init
 
 publicsuffix.py: publicsuffix/publicsuffix.py
 	cp publicsuffix/publicsuffix.py .
@@ -46,3 +46,5 @@ clean:
 
 deepclean: clean
 	- rm -f publicsuffix.py publicsuffix.txt
+	- rm -rf publicsuffix
+
