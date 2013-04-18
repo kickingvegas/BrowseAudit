@@ -4,6 +4,13 @@ A Python script to read your OS X Safari history file and privately list your mo
 
 Surprise yourself today. 
 
+## Installation
+
+In a command line, please run the following:
+
+    $ git clone git@github.com:kickingvegas/BrowseAudit.git
+    
+Note that *BrowseAudit* uses the 3rd party Python module `publicsuffix` as a `git submodule`. Please disregard any GitHub `tar.gz` or `zip` buttons as the `publicsuffix` submodule source will not be included in them.
 
 ## Quick Start Using Make
 
