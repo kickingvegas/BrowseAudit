@@ -10,7 +10,7 @@ In a command line, please run the following:
 
     $ git clone git@github.com:kickingvegas/BrowseAudit.git
     
-Note that *BrowseAudit* uses the 3rd party Python module [`publicsuffix`](https://pypi.python.org/pypi/publicsuffix/) as a `git submodule`. Please disregard any GitHub generated `tar.gz` or `zip` buttons as the `publicsuffix` submodule source will not be included in them.
+Note that *BrowseAudit* uses the 3rd party Python module [`publicsuffix`](https://pypi.python.org/pypi/publicsuffix/) as a `git submodule`. Please disregard any GitHub generated `tar.gz` or `.zip` links as the `publicsuffix` submodule source will not be included in them.
 
 ## Quick Start Using Make
 
