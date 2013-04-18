@@ -54,7 +54,7 @@ To get help:
 
 ## Recent Changes
 
-* Changed to use public suffix lookup 
+* Fix Makefile to properly install Python `publicsuffix` as a `git` submodule.
     
 ## Licenses
 
